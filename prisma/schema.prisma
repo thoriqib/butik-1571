@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tamu {
+  id              Int          @id @default(autoincrement())
+  nama            String
+  tahunlahir      String
+  nohp            String
+  email           String
+  jk              JenisKelamin
+  Pendidikan      Pendidikan   @relation(fields: [pt], references: [id])
+  pt              Int
+  Pekerjaan       Pekerjaan    @relation(fields: [pu], references: [id])
+  pu              Int
+  pul             String
+  Instansi        Instansi     @relation(fields: [ki], references: [id])
+  namains         String
+  ki              Int
+  kil             String
+  PemanfaatanData Pemanfaatan  @relation(fields: [dd], references: [id])
+  dd              Int
+  ddl             String
+  Layanan         Layanan      @relation(fields: [jl], references: [id])
+  jl              Int
+  Fasilitas       Fasilitas    @relation(fields: [fk], references: [id])
+  fk              Int
+  surat           String
+  kebutuhan       String
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  Gambar          Gambar[]
+}
+
+enum JenisKelamin {
+  PRIA
+  WANITA
+}
+
+model Gambar {
+  id      Int    @id
+  nama    String
+  tamu_id Int
+  Tamu    Tamu   @relation(fields: [tamu_id], references: [id])
+}
+
+model Layanan {
+  id   Int    @id
+  nama String
+  tamu Tamu[]
+}
+
+model Pendidikan {
+  id         Int    @id @default(autoincrement())
+  pendidikan String
+  tamu       Tamu[]
+}
+
+model Instansi {
+  id       Int    @id @default(autoincrement())
+  instansi String
+  tamu     Tamu[]
+}
+
+model Pekerjaan {
+  id        Int    @id @default(autoincrement())
+  pekerjaan String
+  tamu      Tamu[]
+}
+
+model Fasilitas {
+  id        Int    @id @default(autoincrement())
+  fasilitas String
+  tamu      Tamu[]
+}
+
+model Pemanfaatan {
+  id   Int    @id @default(autoincrement())
+  data String
+  tamu Tamu[]
+}
+
+model Penilaian {
+  id        Int      @id @default(autoincrement())
+  skor      Int
+  saran     String
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id       String @id @default(cuid())
+  name     String
+  username String @unique
+}
