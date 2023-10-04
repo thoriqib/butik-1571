@@ -21,14 +21,11 @@ model Tamu {
   pt              Int
   Pekerjaan       Pekerjaan    @relation(fields: [pu], references: [id])
   pu              Int
-  pul             String
   Instansi        Instansi     @relation(fields: [ki], references: [id])
   namains         String
   ki              Int
-  kil             String
   PemanfaatanData Pemanfaatan  @relation(fields: [dd], references: [id])
   dd              Int
-  ddl             String
   Layanan         Layanan      @relation(fields: [jl], references: [id])
   jl              Int
   Fasilitas       Fasilitas    @relation(fields: [fk], references: [id])
