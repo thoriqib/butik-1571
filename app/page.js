@@ -1,6 +1,5 @@
 // import { useState } from "react";
 import { PrismaClient } from "@prisma/client";
-import axios from "axios";
 import FormTamu from "./components/FormTamu";
 
 const prisma = new PrismaClient();

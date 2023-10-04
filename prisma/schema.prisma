@@ -13,7 +13,7 @@ datasource db {
 model Tamu {
   id              Int          @id @default(autoincrement())
   nama            String
-  tahunlahir      String
+  tahunlahir      Int
   nohp            String
   email           String
   jk              JenisKelamin
