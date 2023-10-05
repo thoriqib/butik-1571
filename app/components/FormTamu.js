@@ -153,7 +153,6 @@ export default function FormTamu(props) {
         </label>
         <select
           className="select select-primary w-full max-w-xs"
-          defaultValue={""}
           value={pt}
           onChange={(e) => setPendidikan(e.target.value)}
         >
@@ -175,7 +174,6 @@ export default function FormTamu(props) {
         </label>
         <select
           className="select select-primary w-full max-w-xs"
-          defaultValue={""}
           value={pu}
           onChange={(e) => setPekerjaan(e.target.value)}
         >
@@ -197,7 +195,6 @@ export default function FormTamu(props) {
         </label>
         <select
           className="select select-primary w-full max-w-xs"
-          defaultValue={""}
           value={ki}
           onChange={(e) => setKategoriInstansi(e.target.value)}
         >
@@ -236,7 +233,6 @@ export default function FormTamu(props) {
         </label>
         <select
           className="select select-primary w-full max-w-xs"
-          defaultValue={""}
           value={dd}
           onChange={(e) => setPemanfaatan(e.target.value)}
         >
@@ -258,7 +254,6 @@ export default function FormTamu(props) {
         </label>
         <select
           className="select select-primary w-full max-w-xs"
-          defaultValue={""}
           value={jl}
           onChange={(e) => setLayanan(e.target.value)}
         >
@@ -280,7 +275,6 @@ export default function FormTamu(props) {
         </label>
         <select
           className="select select-primary w-full max-w-xs"
-          defaultValue={""}
           value={fk}
           onChange={(e) => setFasilitas(e.target.value)}
         >
