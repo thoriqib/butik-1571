@@ -47,7 +47,7 @@ export default async function Home() {
       <h1 className="text-center font-bold">
         Selamat Datang di BPS Kota Jambi
       </h1>
-      <div className="card w-96 bg-base-100 shadow-xl lg:max-w-xl">
+      <div className="card w-3/4 bg-base-100 shadow-xl rounded-lg">
         <div className="card-body">
           <h2 className="card-title text-center">
             Isilah Pertanyaan di Bawah Ini

@@ -53,6 +53,9 @@ export default function DeleteTamu(props) {
             )}
           </div>
         </div>
+        <form method="dialog" className="modal-backdrop">
+          <button onClick={handleModal}>close</button>
+        </form>
       </div>
     </div>
   );

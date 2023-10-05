@@ -1,11 +1,21 @@
 import { PrismaClient } from "@prisma/client";
 import DeleteTamu from "./delete";
 import UpdateTamu from "./update";
+import DetailTamu from "./detail";
 
 const prisma = new PrismaClient();
 
 const getTamu = async () => {
-  const res = await prisma.tamu.findMany();
+  const res = await prisma.tamu.findMany({
+    include: {
+      Pendidikan: true,
+      Pekerjaan: true,
+      Instansi: true,
+      PemanfaatanData: true,
+      Layanan: true,
+      Fasilitas: true,
+    },
+  });
   return res;
 };
 
@@ -49,40 +59,48 @@ export default async function Daftar() {
   const fasilitas = await getFasilitasUtama();
 
   return (
-    <>
-      <table className="table w-full">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Nama</th>
-            <th>Email</th>
-            <th>No HP</th>
-            <th className="text-center">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tamu.map((t, i) => (
-            <tr key={t.id}>
-              <td>{i + 1}</td>
-              <td>{t.nama}</td>
-              <td>{t.email}</td>
-              <td>{t.nohp}</td>
-              <td className="flex justify-center space-x-1">
-                <UpdateTamu
-                  tamu={t}
-                  pendidikan={pendidikan}
-                  pekerjaan={pekerjaan}
-                  instansi={instansi}
-                  pemanfaatan={pemanfaatan}
-                  layanan={layanan}
-                  fasilitas={fasilitas}
-                />
-                <DeleteTamu tamu={t} />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </>
+    <div className="flex items-center justify-center w-100">
+      <div className="card w-11/12 bg-base-100 shadow-xl rounded-lg">
+        <div className="card-body">
+          <h2 className="card-title text-center">
+            Daftar Pengunjung BPS Kota Jambi
+          </h2>
+          <table className="table w-full">
+            <thead className="text-center">
+              <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>No HP</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tamu.map((t, i) => (
+                <tr key={t.id} className="text-center">
+                  <td>{i + 1}</td>
+                  <td>{t.nama}</td>
+                  <td>{t.email}</td>
+                  <td>{t.nohp}</td>
+                  <td className="flex justify-center space-x-1">
+                    <DetailTamu tamu={t} />
+                    <UpdateTamu
+                      tamu={t}
+                      pendidikan={pendidikan}
+                      pekerjaan={pekerjaan}
+                      instansi={instansi}
+                      pemanfaatan={pemanfaatan}
+                      layanan={layanan}
+                      fasilitas={fasilitas}
+                    />
+                    <DeleteTamu tamu={t} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   );
 }

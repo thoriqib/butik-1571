@@ -60,12 +60,18 @@ const UpdateTamu = (props) => {
 
   return (
     <div>
-      <button className="btn btn-info" onClick={handleModal}>
+      <button className="btn btn-warning" onClick={handleModal}>
         Edit
       </button>
 
-      <div className={isOpen ? "modal modal-open" : "modal"}>
-        <div className="modal-box">
+      <div className={isOpen ? "modal modal-open rounded-lg" : "modal"}>
+        <div className="modal-box w-11/12 max-w-5xl">
+          <button
+            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+            onClick={handleModal}
+          >
+            ✕
+          </button>
           <h3 className="font-bold text-lg">Update {tamu.nama}</h3>
           <form onSubmit={handleUpdate}>
             <div>
@@ -162,7 +168,7 @@ const UpdateTamu = (props) => {
                 </span>
               </label>
               <select
-                className="select select-primary w-full max-w-xs"
+                className="select select-primary w-full"
                 value={pt}
                 onChange={(e) => setPendidikan(e.target.value)}
               >
@@ -183,7 +189,7 @@ const UpdateTamu = (props) => {
                 </span>
               </label>
               <select
-                className="select select-primary w-full max-w-xs"
+                className="select select-primary w-full"
                 value={pu}
                 onChange={(e) => setPekerjaan(e.target.value)}
               >
@@ -204,7 +210,7 @@ const UpdateTamu = (props) => {
                 </span>
               </label>
               <select
-                className="select select-primary w-full max-w-xs"
+                className="select select-primary w-full"
                 value={ki}
                 onChange={(e) => setKategoriInstansi(e.target.value)}
               >
@@ -243,7 +249,7 @@ const UpdateTamu = (props) => {
                 </span>
               </label>
               <select
-                className="select select-primary w-full max-w-xs"
+                className="select select-primary w-full"
                 value={dd}
                 onChange={(e) => setPemanfaatan(e.target.value)}
               >
@@ -264,7 +270,7 @@ const UpdateTamu = (props) => {
                 </span>
               </label>
               <select
-                className="select select-primary w-full max-w-xs"
+                className="select select-primary w-full"
                 value={jl}
                 onChange={(e) => setLayanan(e.target.value)}
               >
@@ -285,7 +291,7 @@ const UpdateTamu = (props) => {
                 </span>
               </label>
               <select
-                className="select select-primary w-full max-w-xs"
+                className="select select-primary w-full"
                 value={fk}
                 onChange={(e) => setFasilitas(e.target.value)}
               >
@@ -332,6 +338,9 @@ const UpdateTamu = (props) => {
             </div>
           </form>
         </div>
+        <form method="dialog" className="modal-backdrop">
+          <button onClick={handleModal}>close</button>
+        </form>
       </div>
     </div>
   );
