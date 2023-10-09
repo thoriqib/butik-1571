@@ -1,36 +1,29 @@
-"use client";
-import DataTable from "react-data-table-component";
+import FormLogin from "@/app/components/FormLogin";
 
-const columns = [
-  {
-    name: "Title",
-    selector: (row) => row.title,
-  },
-  {
-    name: "Year",
-    selector: (row) => row.year,
-  },
-  {
-    name: "Aksi",
-    selector: (row) => row.action,
-  },
-];
-
-const data = [
-  {
-    id: 1,
-    title: "Beetlejuice",
-    year: "1988",
-    action: <button className="btn btn-info">View</button>,
-  },
-  {
-    id: 2,
-    title: "Ghostbusters",
-    year: "1984",
-    action: <button className="btn btn-warning">Edit</button>,
-  },
-];
-
-export default function MyComponent() {
-  return <DataTable columns={columns} data={data} />;
+export default function Login() {
+  return (
+    <main className="flex items-center justify-center flex-col h-screen">
+      <div className="card w-3/4 bg-base-100 shadow-xl rounded-lg">
+        <div className="card-body">
+          <h2 className="card-title text-center">Login</h2>
+          <FormLogin />
+        </div>
+      </div>
+    </main>
+  );
 }
+
+// export async function getServerSideProps(context) {
+//   const req = context.req;
+//   const res = context.res;
+//   let username = getCookie("username", { req, res });
+//   if (username != undefined) {
+//     return {
+//       redirect: {
+//         permanent: false,
+//         destination: "/",
+//       },
+//     };
+//   }
+//   return { props: { username: false } };
+// }
