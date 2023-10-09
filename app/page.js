@@ -44,7 +44,7 @@ export default async function Home() {
 
   return (
     <main className="flex items-center justify-center flex-col">
-      <h1 className="text-center font-bold">
+      <h1 className="text-center font-bold text-xl">
         Selamat Datang di BPS Kota Jambi
       </h1>
       <div className="card w-3/4 bg-base-100 shadow-xl rounded-lg">

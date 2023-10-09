@@ -2,7 +2,7 @@ import FormPenilaian from "../components/FormPenilaian";
 
 export default function Penilaian() {
   return (
-    <div className="flex items-center justify-center flex-col">
+    <div className="flex items-center justify-center flex-col h-screen">
       {/* <div className="alert alert-success w-3/4">
         <svg
           xmlns="http://www.w3.org/2000/svg"

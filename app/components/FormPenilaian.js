@@ -2,9 +2,11 @@
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Sad from "./emoticon/Sad";
+import Smile from "./emoticon/Smile";
 
 export default function FormPenilaian() {
-  const [skor, setSkor] = useState("");
+  const [skor, setSkor] = useState(0);
   const [saran, setSaran] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -18,56 +20,46 @@ export default function FormPenilaian() {
       })
       .then((response) => {
         setIsLoading(false);
-        setSkor("");
+        setSkor(0);
         setSaran("");
         router.refresh();
       });
   };
   return (
     <div className="flex items-center justify-center flex-col w-full">
-      <h1 className="text-xl font-bold">Penilaian</h1>
+      <h1 className="text-2xl font-bold">
+        Terima Kasih Telah Mengunjungi BPS Kota Jambi
+      </h1>
+      <h1 className="text-xl">
+        Bantu Kami Menjadi Lebih Baik Dengan Memberikan Penilaian, Kritik dan
+        Saran
+      </h1>
       <form onSubmit={handleSubmit} className="w-full">
-        <div className="rating rating-lg flex items-center justify-center">
-          <input
-            type="radio"
-            name="skor"
-            className="mask mask-star-2 bg-orange-400"
-            value={1}
-            checked={skor == 1}
-            onChange={(e) => setSkor(e.target.value)}
-          />
-          <input
-            type="radio"
-            name="skor"
-            className="mask mask-star-2 bg-orange-400"
-            checked={skor == 2}
-            onChange={(e) => setSkor(e.target.value)}
-            value={2}
-          />
-          <input
-            type="radio"
-            name="skor"
-            className="mask mask-star-2 bg-orange-400"
-            checked={skor == 3}
-            onChange={(e) => setSkor(e.target.value)}
-            value={3}
-          />
-          <input
-            type="radio"
-            name="skor"
-            className="mask mask-star-2 bg-orange-400"
-            checked={skor == 4}
-            onChange={(e) => setSkor(e.target.value)}
-            value={4}
-          />
-          <input
-            type="radio"
-            name="skor"
-            className="mask mask-star-2 bg-orange-400"
-            value={5}
-            checked={skor == 5}
-            onChange={(e) => setSkor(e.target.value)}
-          />
+        <div className="rating rating-lg flex items-center justify-center m-4">
+          <div className="flex flex-row items-center">
+            <div
+              className="flex flex-col items-center justify-center cursor-pointer mx-2"
+              onClick={(e) => setSkor(1)}
+            >
+              {skor == 1 ? (
+                <Sad width="100px" height="100px" color="red" />
+              ) : (
+                <Sad width="100px" height="100px" color="grey" />
+              )}
+              <p>Tidak Puas</p>
+            </div>
+            <div
+              className="flex flex-col items-center justify-center cursor-pointer mx-2"
+              onClick={(e) => setSkor(2)}
+            >
+              {skor == 2 ? (
+                <Smile width="100px" height="100px" color="green" />
+              ) : (
+                <Smile width="100px" height="100px" color="grey" />
+              )}
+              <p>Puas</p>
+            </div>
+          </div>
         </div>
         <div className="form-control mx-8">
           <label className="label">
@@ -81,13 +73,20 @@ export default function FormPenilaian() {
           ></textarea>
         </div>
         <div className="mx-8 my-4">
-          {!isLoading ? (
-            <button type="submit" className="btn btn-block btn-primary">
-              Simpan
-            </button>
+          {skor != 0 ? (
+            !isLoading ? (
+              <button type="submit" className="btn btn-block btn-primary">
+                Simpan
+              </button>
+            ) : (
+              <button type="button" className="btn btn-block">
+                <span className="loading loading-spinner"></span>
+                Menyimpan...
+              </button>
+            )
           ) : (
-            <button type="button" className="btn btn-block loading">
-              Menyimpan...
+            <button className="btn btn-block" disabled="disabled">
+              Simpan
             </button>
           )}
         </div>

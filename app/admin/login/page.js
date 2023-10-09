@@ -1,11 +1,36 @@
-import { PrismaClient } from "@prisma/client";
+"use client";
+import DataTable from "react-data-table-component";
 
-const prisma = new PrismaClient();
+const columns = [
+  {
+    name: "Title",
+    selector: (row) => row.title,
+  },
+  {
+    name: "Year",
+    selector: (row) => row.year,
+  },
+  {
+    name: "Aksi",
+    selector: (row) => row.action,
+  },
+];
 
-export default function Login() {
-  return (
-    <>
-      <h1>Login</h1>
-    </>
-  );
+const data = [
+  {
+    id: 1,
+    title: "Beetlejuice",
+    year: "1988",
+    action: <button className="btn btn-info">View</button>,
+  },
+  {
+    id: 2,
+    title: "Ghostbusters",
+    year: "1984",
+    action: <button className="btn btn-warning">Edit</button>,
+  },
+];
+
+export default function MyComponent() {
+  return <DataTable columns={columns} data={data} />;
 }
