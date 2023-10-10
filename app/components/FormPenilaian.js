@@ -4,8 +4,12 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import Sad from "./emoticon/Sad";
 import Smile from "./emoticon/Smile";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function FormPenilaian() {
+  const [status, setStatus] = useState("");
+  const [message, setMessage] = useState("");
   const [skor, setSkor] = useState(0);
   const [saran, setSaran] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -22,11 +26,19 @@ export default function FormPenilaian() {
         setIsLoading(false);
         setSkor(0);
         setSaran("");
-        router.refresh();
+        // router.push("/penilaian?status=success&message=mantap");
+        // Menampilkan notifikasi sukses
+        toast.success("Penilaian berhasil disimpan!", {
+          position: toast.POSITION.TOP_RIGHT, // Posisi notifikasi
+          autoClose: 5000, // Durasi notifikasi dalam milidetik (3 detik)
+        });
       });
   };
+  // if (router.query.status != undefined) setStatus(router.query.status);
+  // if (router.query.message != undefined) setMessage(router.query.message);
   return (
     <div className="flex items-center justify-center flex-col w-full">
+      <p>{status}</p>
       <h1 className="text-2xl font-bold">
         Terima Kasih Telah Mengunjungi BPS Kota Jambi
       </h1>

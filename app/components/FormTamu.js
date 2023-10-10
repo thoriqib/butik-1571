@@ -51,7 +51,7 @@ export default function FormTamu(props) {
     setLayanan("");
     setFasilitas("");
     setKebutuhan("");
-    router.refresh();
+    router.push("/penilaian");
   };
 
   const { pendidikan, pekerjaan, instansi, pemanfaatan, layanan, fasilitas } =
@@ -311,7 +311,8 @@ export default function FormTamu(props) {
             Simpan
           </button>
         ) : (
-          <button type="button" className="btn btn-block loading">
+          <button type="button" className="btn btn-block">
+            <span className="loading loading-spinner"></span>
             Menyimpan...
           </button>
         )}
