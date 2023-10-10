@@ -32,6 +32,9 @@ export default function FormPenilaian() {
           position: toast.POSITION.TOP_RIGHT, // Posisi notifikasi
           autoClose: 5000, // Durasi notifikasi dalam milidetik (3 detik)
         });
+      })
+      .catch((error) => {
+        toast.error("Terjadi kesalahan saat menyimpan data.");
       });
   };
   // if (router.query.status != undefined) setStatus(router.query.status);
