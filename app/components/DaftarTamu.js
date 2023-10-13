@@ -99,7 +99,6 @@ const DaftarTamu = (props) => {
   useEffect(() => {
     let temp = [];
     tamu.map((t, i) => {
-      let href = "/admin/daftar/tamu/" + t.id;
       let obj = {
         no: i + 1,
         nama: t.nama,
