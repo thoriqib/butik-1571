@@ -1,13 +1,23 @@
 "use client";
-
-import DetailTamu from "../admin/daftar/detail";
+import Cookies from "js-cookie";
 import UpdateTamu from "../admin/daftar/update";
 import DeleteTamu from "../admin/daftar/delete";
+import DetailTamu from "../admin/daftar/detail";
 import DataTable from "react-data-table-component";
 import { useEffect, useMemo, useState } from "react";
 import FilterComponent from "./FilterComponent";
+import { useRouter } from "next/navigation";
 
 const DaftarTamu = (props) => {
+  const router = useRouter();
+  useEffect(() => {
+    const token = Cookies.get("token");
+
+    if (!token) {
+      router.replace("/admin/login"); // If no token is found, redirect to login page
+      return;
+    }
+  }, [router]);
   const {
     tamu,
     pendidikan,
@@ -54,35 +64,48 @@ const DaftarTamu = (props) => {
       name: "No",
       selector: (row) => row.no,
       sortable: true,
+      grow: 1,
     },
     {
       name: "Nama",
       selector: (row) => row.nama,
       sortable: true,
+      grow: 2,
     },
     {
       name: "Email",
       selector: (row) => row.email,
       sortable: true,
+      grow: 2,
     },
     {
       name: "No HP",
       selector: (row) => row.nohp,
+      grow: 2,
+    },
+    {
+      name: "Tanggal Kunjungan",
+      selector: (row) => row.createdAt,
+      sortable: true,
+      grow: 2,
     },
     {
       name: "Aksi",
       selector: (row) => row.action,
+      grow: 3,
     },
   ];
 
   useEffect(() => {
     let temp = [];
     tamu.map((t, i) => {
+      let href = "/admin/daftar/tamu/" + t.id;
       let obj = {
         no: i + 1,
         nama: t.nama,
         email: t.email,
         nohp: t.nohp,
+        createdAt: t.createdAt.toLocaleString("id-ID"),
         action: (
           <td className="flex justify-center space-x-1">
             <DetailTamu tamu={t} />
@@ -106,7 +129,7 @@ const DaftarTamu = (props) => {
   }, []);
 
   return (
-    <div className="card w-11/12 bg-base-100 shadow-xl rounded-lg">
+    <div className="card w-11/12 bg-base-100 shadow-xl rounded-lg mt-8 mb-20 mx-4">
       <div className="card-body">
         <h2 className="card-title text-center">
           Daftar Pengunjung BPS Kota Jambi

@@ -43,7 +43,7 @@ export default async function Home() {
   const fasilitas = await getFasilitasUtama();
 
   return (
-    <main className="flex items-center justify-center flex-col">
+    <main className="flex items-center justify-center flex-col mb-20 mt-8 mx-4">
       <h1 className="text-center font-bold text-xl">
         Selamat Datang di BPS Kota Jambi
       </h1>
@@ -52,6 +52,7 @@ export default async function Home() {
           <h2 className="card-title text-center">
             Isilah Pertanyaan di Bawah Ini
           </h2>
+
           <FormTamu
             pendidikan={pendidikan}
             pekerjaan={pekerjaan}

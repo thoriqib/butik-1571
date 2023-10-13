@@ -2,23 +2,32 @@
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import "react-toastify/dist/ReactToastify.css";
+import Cookies from "js-cookie";
 
 export default function FormLogin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    await axios.post("/api/login", {
-      username,
-      password,
-    });
-    setIsLoading(false);
-    setUsername("");
-    setPassword("");
-    router.refresh();
+    axios
+      .post("/api/login", { username, password })
+      .then((response) => {
+        const data = response.data;
+        Cookies.set("token", data.data.username);
+        router.push("/admin/daftar");
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setUsername("");
+        setPassword("");
+        alert("Email/Password salah.");
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -33,6 +42,7 @@ export default function FormLogin() {
           type="text"
           placeholder="username Lengkap"
           value={username}
+          name="username"
           onChange={(e) => setUsername(e.target.value)}
           className="w-full input input-bordered input-primary"
         />
@@ -47,6 +57,7 @@ export default function FormLogin() {
           type="password"
           placeholder="Password"
           className="w-full input input-bordered input-primary"
+          name="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -58,7 +69,7 @@ export default function FormLogin() {
             Login
           </button>
         ) : (
-          <button type="button" className="btn btn-block loading">
+          <button type="button" className="btn btn-block">
             <span className="loading loading-spinner"></span>
           </button>
         )}

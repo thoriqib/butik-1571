@@ -13,7 +13,7 @@ datasource db {
 model Tamu {
   id              Int          @id @default(autoincrement())
   nama            String
-  tahunlahir      String
+  tahunlahir      Int
   nohp            String
   email           String
   jk              JenisKelamin
@@ -35,6 +35,12 @@ model Tamu {
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
   Gambar          Gambar[]
+}
+
+model Pemanfaatan {
+  id   Int    @id @default(autoincrement())
+  data String
+  tamu Tamu[]
 }
 
 enum JenisKelamin {
@@ -79,12 +85,6 @@ model Fasilitas {
   tamu      Tamu[]
 }
 
-model Pemanfaatan {
-  id   Int    @id @default(autoincrement())
-  data String
-  tamu Tamu[]
-}
-
 model Penilaian {
   id        Int      @id @default(autoincrement())
   skor      Int
@@ -93,7 +93,7 @@ model Penilaian {
 }
 
 model User {
-  id       String @id @default(cuid())
+  id       Int    @id @default(autoincrement())
   username String @unique
   password String
 }
