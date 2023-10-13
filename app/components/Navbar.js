@@ -33,7 +33,7 @@ export default function Navbar() {
                   <Link href="/admin/rekap">Rekap Tamu</Link>
                 </li>
                 <li className="text-black">
-                  <Link href="/admin/rekap/penilaian">Rekap Penilaian</Link>
+                  <Link href="/admin/penilaian">Rekap Penilaian</Link>
                 </li>
               </ul>
             </details>
