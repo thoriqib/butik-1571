@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 export default function Navbar() {
   const router = useRouter;
   return (
-    <nav className="navbar bg-base-100 shadow-xl">
+    <div className="navbar bg-base-100 shadow-xl">
       <div className="navbar-start">
         <Link className="normal-case text-xl" href="/">
           <Image
@@ -33,7 +33,7 @@ export default function Navbar() {
                   <Link href="/admin/rekap">Rekap Tamu</Link>
                 </li>
                 <li className="text-black">
-                  <Link href="/admin/penilaian">Rekap Penilaian</Link>
+                  <Link href="/admin/rekap/penilaian">Rekap Penilaian</Link>
                 </li>
               </ul>
             </details>
@@ -106,6 +106,6 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
-    </nav>
+    </div>
   );
 }
