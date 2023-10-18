@@ -111,23 +111,16 @@ export default function RekapTamu(props) {
       <div className="stats stats-vertical lg:stats-horizontal shadow m-4">
         <div className="stat">
           <div className="stat-title">Tahun {year}</div>
-          <div className="stat-value">{countTamu[0]._count.id}</div>
-          <div className="stat-desc">Jan 1st - Feb 1st</div>
+          <div className="stat-value text-center">{countTamu[0]._count.id}</div>
         </div>
 
         <div className="stat">
           <div className="stat-title">
             Bulan {month} {year}
           </div>
-          <div className="stat-value">{countTamu[1]._count.id}</div>
-          <div className="stat-desc">↗︎ 400 (22%)</div>
+          <div className="stat-value text-center">{countTamu[1]._count.id}</div>
         </div>
 
-        <div className="stat">
-          <div className="stat-title">New Registers</div>
-          <div className="stat-value">1,200</div>
-          <div className="stat-desc">↘︎ 90 (14%)</div>
-        </div>
       </div>
       <h1 className="text-3xl font-bold text-center">Segmentasi Pengunjung</h1>
       <div className="flex flex-row items-center justify-center">

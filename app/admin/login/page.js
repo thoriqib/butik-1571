@@ -12,18 +12,3 @@ export default function Login() {
     </main>
   );
 }
-
-// export async function getServerSideProps(context) {
-//   const req = context.req;
-//   const res = context.res;
-//   let username = getCookie("username", { req, res });
-//   if (username != undefined) {
-//     return {
-//       redirect: {
-//         permanent: false,
-//         destination: "/",
-//       },
-//     };
-//   }
-//   return { props: { username: false } };
-// }

@@ -1,8 +1,6 @@
 import RekapTamu from "@/app/components/RekapTamu";
 import prisma from "@/app/utils/prismaClient";
 
-const countTamu = [];
-
 const now = new Date();
 const year = now.getFullYear();
 const month = now.getMonth() + 1;
@@ -34,6 +32,8 @@ const countTamuMonth = await prisma.tamu.aggregate({
     id: true,
   },
 });
+
+
 
 export default async function Rekap() {
   const jkTamu = await prisma.tamu.groupBy({

@@ -40,7 +40,7 @@ export default function FormLogin() {
         </label>
         <input
           type="text"
-          placeholder="username Lengkap"
+          placeholder="Username"
           value={username}
           name="username"
           onChange={(e) => setUsername(e.target.value)}
