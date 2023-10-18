@@ -1,12 +1,27 @@
 "use client";
-import { useEffect } from "react";
+
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { Pie } from "react-chartjs-2";
+import Cookies from "js-cookie";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function RekapTamu(props) {
+  const router = useRouter();
+  useEffect(() => {
+    const token = Cookies.get("token");
+
+    if (!token) {
+      router.replace("/admin/login"); // If no token is found, redirect to login page
+      return;
+    }
+  }, [router]);
   const { jkTamu, ptTamu, puTamu, countTamu } = props;
+  const year = new Date().getFullYear();
+  const date = new Date();
+  const month = date.toLocaleString("id-ID", { month: "long" });
   const datajk = {
     labels: ["Laki-Laki", "Perempuan"],
     datasets: [
@@ -92,16 +107,19 @@ export default function RekapTamu(props) {
   };
   return (
     <div className="flex flex-col items-center justify-center mb-20">
+      <h1 className="text-3xl font-bold text-center">Jumlah Pengunjung</h1>
       <div className="stats stats-vertical lg:stats-horizontal shadow m-4">
         <div className="stat">
-          <div className="stat-title">Pengunjung</div>
-          <div className="stat-value">{countTamu._count.id}</div>
+          <div className="stat-title">Tahun {year}</div>
+          <div className="stat-value">{countTamu[0]._count.id}</div>
           <div className="stat-desc">Jan 1st - Feb 1st</div>
         </div>
 
         <div className="stat">
-          <div className="stat-title">New Users</div>
-          <div className="stat-value">4,200</div>
+          <div className="stat-title">
+            Bulan {month} {year}
+          </div>
+          <div className="stat-value">{countTamu[1]._count.id}</div>
           <div className="stat-desc">↗︎ 400 (22%)</div>
         </div>
 
@@ -111,6 +129,7 @@ export default function RekapTamu(props) {
           <div className="stat-desc">↘︎ 90 (14%)</div>
         </div>
       </div>
+      <h1 className="text-3xl font-bold text-center">Segmentasi Pengunjung</h1>
       <div className="flex flex-row items-center justify-center">
         <div className="card bg-base-100 shadow-xl m-4">
           <div className="card-body">

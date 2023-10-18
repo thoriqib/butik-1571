@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 
 const UpdateTamu = (props) => {
   const {
@@ -34,24 +33,43 @@ const UpdateTamu = (props) => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    await axios.patch(`/api/tamu/${tamu.id}`, {
-      nama,
-      tahunlahir,
-      email,
-      nohp,
-      jk,
-      pt,
-      pu,
-      namains,
-      ki,
-      dd,
-      jl,
-      fk,
-      kebutuhan,
+    const data = new FormData(e.target);
+    data.set("nama", nama);
+    data.set("nohp", nohp);
+    data.set("email", email);
+    data.set("tahunlahir", tahunlahir);
+    data.set("jk", jk);
+    data.set("pt", pt);
+    data.set("pu", pu);
+    data.set("namains", namains);
+    data.set("ki", ki);
+    data.set("dd", dd);
+    data.set("jl", jl);
+    data.set("fk", fk);
+    data.set("kebutuhan", kebutuhan);
+    // await axios.patch(`/api/tamu/${tamu.id}`, {
+    //   nama,
+    //   tahunlahir,
+    //   email,
+    //   nohp,
+    //   jk,
+    //   pt,
+    //   pu,
+    //   namains,
+    //   ki,
+    //   dd,
+    //   jl,
+    //   fk,
+    //   kebutuhan,
+    // });
+    const response = await fetch(`/api/tamu/${tamu.id}`, {
+      method: "POST",
+      body: data,
     });
     setIsLoading(false);
     router.refresh();
     setIsOpen(false);
+    console.log(response)
   };
 
   const handleModal = () => {
@@ -80,8 +98,14 @@ const UpdateTamu = (props) => {
         </span>
       </button>
 
-      <div className={isOpen ? "modal modal-open rounded-lg" : "modal"}>
-        <div className="modal-box w-11/12 max-w-5xl">
+      <div
+        className={
+          isOpen
+            ? "modal modal-open overflow-y-auto overflow-x-auto rounded-lg"
+            : "modal"
+        }
+      >
+        <div className="modal-box w-full max-w-5xl max-h-max m-auto">
           <button
             className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
             onClick={handleModal}
@@ -337,6 +361,18 @@ const UpdateTamu = (props) => {
                 value={kebutuhan}
                 onChange={(e) => setKebutuhan(e.target.value)}
               ></textarea>
+            </div>
+            <div>
+              <label className="label">
+                <span className="label-text text-base">
+                  Unggah Surat Pengantar
+                </span>
+              </label>
+              <input
+                type="file"
+                className="file-input file-input-bordered file-input-primary w-full"
+                name="surat"
+              />
             </div>
             <div className="modal-action">
               <button type="button" className="btn" onClick={handleModal}>

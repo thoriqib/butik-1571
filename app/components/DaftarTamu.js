@@ -10,14 +10,14 @@ import { useRouter } from "next/navigation";
 
 const DaftarTamu = (props) => {
   const router = useRouter();
-  useEffect(() => {
-    const token = Cookies.get("token");
+  // useEffect(() => {
+  //   const token = Cookies.get("token");
 
-    if (!token) {
-      router.replace("/admin/login"); // If no token is found, redirect to login page
-      return;
-    }
-  }, [router]);
+  //   if (!token) {
+  //     router.replace("/admin/login"); // If no token is found, redirect to login page
+  //     return;
+  //   }
+  // }, [router]);
   const {
     tamu,
     pendidikan,
@@ -118,6 +118,7 @@ const DaftarTamu = (props) => {
               fasilitas={fasilitas}
             />
             <DeleteTamu tamu={t} />
+            <a className="btn btn-primary" href={`${window.location.origin}/${t.surat}`} download>donlot</a>
           </td>
         ),
       };

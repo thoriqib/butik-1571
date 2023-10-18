@@ -1,32 +1,47 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
+import { writeFile } from "fs/promises";
 
 const prisma = new PrismaClient();
 
-export const PATCH = async (request, params) => {
-  const body = await request.json();
+export const POST = async (request, params) => {
+  const body = await request.formData();
+  const file = body.get("surat");
   const obj = params;
+
+  if (!file) {
+    return NextResponse.json({ success: false });
+  }
+
+  const bytes = await file.arrayBuffer();
+  const buffer = Buffer.from(bytes);
+  const currentDate = new Date().toISOString();
+  const path = `public/${file.name}`;
+
+  await writeFile(path, buffer);
+
   const tamu = await prisma.tamu.update({
     where: {
       id: Number(obj.params.id),
     },
     data: {
-      nama: body.nama,
-      tahunlahir: body.tahunlahir,
-      email: body.email,
-      nohp: body.nohp,
-      jk: body.jk,
-      pt: Number(body.pt),
-      pu: Number(body.pu),
-      namains: body.namains,
-      ki: Number(body.ki),
-      dd: Number(body.dd),
-      jl: Number(body.jl),
-      fk: Number(body.fk),
-      kebutuhan: body.kebutuhan,
-      surat: "",
+      nama: body.get("nama"),
+      tahunlahir: Number(body.get("tahunlahir")),
+      email: body.get("email"),
+      nohp: body.get("nohp"),
+      jk: body.get("jk"),
+      pt: Number(body.get("pt")),
+      pu: Number(body.get("pu")),
+      namains: body.get("namains"),
+      ki: Number(body.get("ki")),
+      dd: Number(body.get("dd")),
+      jl: Number(body.get("jl")),
+      fk: Number(body.get("fk")),
+      kebutuhan: body.get("kebutuhan"),
+      surat: file.name,
     },
   });
+
   return NextResponse.json(tamu, { status: 200 });
 };
 

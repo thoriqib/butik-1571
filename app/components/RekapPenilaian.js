@@ -1,10 +1,21 @@
 "use client";
 import Sad from "@/app/components/emoticon/Sad";
 import Smile from "@/app/components/emoticon/Smile";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
+import Cookies from "js-cookie";
 
 export default function RekapPenilaian(props) {
+  const router = useRouter();
+  useEffect(() => {
+    const token = Cookies.get("token");
+
+    if (!token) {
+      router.replace("/admin/login"); // If no token is found, redirect to login page
+      return;
+    }
+  }, [router]);
   const { penilaian, count } = props;
   const [data, setData] = useState([]);
 
@@ -15,7 +26,7 @@ export default function RekapPenilaian(props) {
       obj.no = i + 1;
       obj.penilaian = p.skor == 2 ? "Puas" : "Tidak Puas";
       obj.saran = p.saran;
-      obj.tanggal = `${p.createdAt.getDate()}-${p.createdAt.getMonth()}-${p.createdAt.getFullYear()}`;
+      obj.tanggal = p.createdAt.toLocaleDateString("id-ID");
 
       temp.push(obj);
     });
@@ -56,7 +67,6 @@ export default function RekapPenilaian(props) {
             </div>
             <div className="stat-title">Tidak Puas</div>
             <div className="stat-value">{count[0]._count.id}</div>
-            {/* <div className="stat-desc">Jan 1st - Feb 1st</div> */}
           </div>
 
           <div className="stat">
@@ -65,7 +75,6 @@ export default function RekapPenilaian(props) {
             </div>
             <div className="stat-title">Puas</div>
             <div className="stat-value">{count[1]._count.id}</div>
-            {/* <div className="stat-desc">↗︎ 400 (22%)</div> */}
           </div>
         </div>
       </div>

@@ -2,10 +2,15 @@
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
-  const router = useRouter;
+  const [token, setToken] = useState(null);
+  useEffect(() => {
+    setToken(Cookies.get("token"));
+  }, [token]);
+  const router = useRouter();
   return (
     <div className="navbar bg-base-100 shadow-xl">
       <div className="navbar-start">
@@ -25,35 +30,40 @@ export default function Navbar() {
       </div>
       <div className="hidden navbar-end md:flex">
         <ul className="menu menu-horizontal px-1 text-black">
-          <li className="z-10">
-            <details>
-              <summary>Rekap</summary>
-              <ul className="p-2 bg-base-100">
-                <li className="text-black">
-                  <Link href="/admin/rekap">Rekap Tamu</Link>
-                </li>
-                <li className="text-black">
-                  <Link href="/admin/rekap/penilaian">Rekap Penilaian</Link>
-                </li>
-              </ul>
-            </details>
-          </li>
           <li>
             <Link href="/penilaian">Penilaian</Link>
           </li>
-          <li>
-            <Link href="/admin/daftar">Daftar Tamu</Link>
-          </li>
-          <li>
-            <button
-              onClick={(e) => {
-                Cookies.remove("token");
-                router.push("/admin/login");
-              }}
-            >
-              Logout
-            </button>
-          </li>
+          {token && (
+            <>
+              <li className="z-10">
+                <details>
+                  <summary>Rekap</summary>
+                  <ul className="p-2 bg-base-100">
+                    <li className="text-black">
+                      <Link href="/admin/rekap">Rekap Tamu</Link>
+                    </li>
+                    <li className="text-black">
+                      <Link href="/admin/rekap/penilaian">Rekap Penilaian</Link>
+                    </li>
+                  </ul>
+                </details>
+              </li>
+
+              <li>
+                <Link href="/admin/daftar">Daftar Tamu</Link>
+              </li>
+              <li>
+                <button
+                  onClick={(e) => {
+                    Cookies.remove("token");
+                    router.push("/admin/login");
+                  }}
+                >
+                  Logout
+                </button>
+              </li>
+            </>
+          )}
         </ul>
       </div>
       <div className="navbar-end dropdown md:hidden">
@@ -80,30 +90,34 @@ export default function Navbar() {
           <li>
             <Link href="/penilaian">Penilaian</Link>
           </li>
-          <li>
-            <a>Rekap</a>
-            <ul className="p-2">
-              <li className="text-black">
-                <Link href="/admin/rekap">Rekap Tamu</Link>
+          {token && (
+            <>
+              <li>
+                <a>Rekap</a>
+                <ul className="p-2">
+                  <li className="text-black">
+                    <Link href="/admin/rekap">Rekap Tamu</Link>
+                  </li>
+                  <li className="text-black">
+                    <Link href="/admin/rekap/penilaian">Rekap Penilaian</Link>
+                  </li>
+                </ul>
               </li>
-              <li className="text-black">
-                <Link href="/admin/rekap/penilaian">Rekap Penilaian</Link>
+              <li>
+                <Link href="/admin/daftar">Daftar Tamu</Link>
               </li>
-            </ul>
-          </li>
-          <li>
-            <Link href="/admin/daftar">Daftar Tamu</Link>
-          </li>
-          <li>
-            <button
-              onClick={(e) => {
-                Cookies.remove("token");
-                router.push("/admin/login");
-              }}
-            >
-              Logout
-            </button>
-          </li>
+              <li>
+                <button
+                  onClick={(e) => {
+                    Cookies.remove("token");
+                    router.push("/admin/login");
+                  }}
+                >
+                  Logout
+                </button>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </div>
