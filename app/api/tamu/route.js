@@ -52,7 +52,7 @@ export const POST = async (request) => {
   const tamu = await prisma.tamu.create({
     data: {
       nama: body.nama,
-      tahunlahir: body.tahunlahir,
+      tahunlahir: Number(body.tahunlahir),
       email: body.email,
       nohp: body.nohp,
       jk: body.jk,
