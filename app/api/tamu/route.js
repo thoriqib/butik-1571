@@ -2,9 +2,7 @@ import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-export const GET = async (request, response) => {
-  const { skip, take } = await request;
-  if (skip == undefined && take == undefined) {
+export const GET = async () => {
     try {
       const queryOutput = await prisma.tamu.findMany({
         include: {
@@ -23,28 +21,6 @@ export const GET = async (request, response) => {
     } finally {
       prisma.$disconnect();
     }
-  } else {
-    try {
-      const queryOutput = await prisma.tamu.findMany({
-        skip: skip,
-        take: take,
-        include: {
-          Pendidikan: true,
-          Pekerjaan: true,
-          Instansi: true,
-          PemanfaatanData: true,
-          Layanan: true,
-          Fasilitas: true,
-        },
-      });
-      return NextResponse.json(queryOutput, { status: 201 });
-    } catch (error) {
-      console.log(error);
-      return NextResponse.json({ error }, { status: 500 });
-    } finally {
-      prisma.$disconnect();
-    }
-  }
 };
 
 export const POST = async (request) => {
