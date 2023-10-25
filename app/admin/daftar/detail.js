@@ -1,5 +1,4 @@
 "use client";
-import { basePath } from "@/next.config";
 import Link from "next/link";
 import { useState } from "react";
 
