@@ -127,19 +127,19 @@ export default function RekapTamu(props) {
         <div className="card bg-base-100 shadow-xl m-4">
           <div className="card-body">
             <h2 className="card-title">Jenis Kelamin</h2>
-            <Pie data={datajk} />;
+            <Pie data={datajk} />
           </div>
         </div>
         <div className="card bg-base-100 shadow-xl m-4">
           <div className="card-body">
             <h2 className="card-title">Pendidikan Tertinggi</h2>
-            <Pie data={datapt} />;
+            <Pie data={datapt} />
           </div>
         </div>
         <div className="card bg-base-100 shadow-xl m-4">
           <div className="card-body">
             <h2 className="card-title">Pekerjaan Utama</h2>
-            <Pie data={datapu} />;
+            <Pie data={datapu} />
           </div>
         </div>
       </div>

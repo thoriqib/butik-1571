@@ -13,8 +13,11 @@ export const GET = async () => {
           Layanan: true,
           Fasilitas: true,
         },
+        orderBy: {
+          createdAt: "desc",
+        },
       });
-      return NextResponse.json(queryOutput, { status: 201 });
+      return NextResponse.json(queryOutput, { status: 200 });
     } catch (error) {
       console.log(error);
       return NextResponse.json({ error }, { status: 500 });

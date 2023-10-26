@@ -34,6 +34,7 @@ const getAllFasilitasUtama = async () => {
 
 export default async function Daftar() {
   const tamu = await getAllTamu();
+  // console.log(tamu.slice(0, 5))
   const pendidikan = await getAllPendidikanTerakhir();
   const pekerjaan = await getAllPekerjaanUtama();
   const instansi = await getAllKategoriInstansi();

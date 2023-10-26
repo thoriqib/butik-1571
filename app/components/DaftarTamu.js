@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 const DaftarTamu = (props) => {
   const router = useRouter();
   const {
-    tamu,
     pendidikan,
     pekerjaan,
     instansi,
@@ -18,6 +17,7 @@ const DaftarTamu = (props) => {
     layanan,
     fasilitas,
   } = props;
+
   const [data, setData] = useState(null);
   const [pending, setPending] = useState(true);
   const [filterText, setFilterText] = useState("");
@@ -77,7 +77,6 @@ const DaftarTamu = (props) => {
     {
       name: "Tanggal Kunjungan",
       selector: (row) => row.createdAt,
-      sortable: true,
       grow: 2,
     },
     {
@@ -89,33 +88,38 @@ const DaftarTamu = (props) => {
 
   useEffect(() => {
     let temp = [];
-    tamu.map((t, i) => {
-      let obj = {
-        no: i + 1,
-        nama: t.nama,
-        email: t.email,
-        nohp: t.nohp,
-        createdAt: t.createdAt.toLocaleString("id-ID"),
-        action: (
-          <td className="flex justify-center space-x-1">
-            <DetailTamu tamu={t} />
-            <UpdateTamu
-              tamu={t}
-              pendidikan={pendidikan}
-              pekerjaan={pekerjaan}
-              instansi={instansi}
-              pemanfaatan={pemanfaatan}
-              layanan={layanan}
-              fasilitas={fasilitas}
-            />
-            <DeleteTamu tamu={t} />
-          </td>
-        ),
-      };
-      temp.push(obj);
-    });
-    setData(temp);
-    setPending(false);
+    const handleDaftar = async () => {
+      const response = await fetch(`/api/tamu`);
+      const tamu = await response.json();
+      tamu.map((t, i) => {
+        let obj = {
+          no: i + 1,
+          nama: t.nama,
+          email: t.email,
+          nohp: t.nohp,
+          createdAt: new Date(t.createdAt).toLocaleString("id-ID"),
+          action: (
+            <td className="flex justify-center space-x-1">
+              <DetailTamu tamu={t} />
+              <UpdateTamu
+                tamu={t}
+                pendidikan={pendidikan}
+                pekerjaan={pekerjaan}
+                instansi={instansi}
+                pemanfaatan={pemanfaatan}
+                layanan={layanan}
+                fasilitas={fasilitas}
+              />
+              <DeleteTamu tamu={t} />
+            </td>
+          ),
+        };
+        temp.push(obj);
+      });
+      setData(temp);
+      setPending(false);
+    }
+    handleDaftar();
   }, []);
 
   return (
